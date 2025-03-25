@@ -1,3 +1,6 @@
+<?php
+   require('assets/_inc/functions.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,26 +9,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
     <title>Villa Agency - Real Estate HTML5 Template</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-
-    <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="assets/css/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/templatemo-villa-agency.css">
-    <link rel="stylesheet" href="assets/css/owl.css">
-    <link rel="stylesheet" href="assets/css/animate.css">
-    <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
-<!--
-
-TemplateMo 591 villa agency
-
-https://templatemo.com/tm-591-villa-agency
-
--->
+    <?php
+    add_stylesheets();
+    ?>
   </head>
 
 <body>
@@ -75,11 +62,13 @@ https://templatemo.com/tm-591-villa-agency
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                      <li><a href="index.php">Home</a></li>
-                      <li><a href="properties.php">Properties</a></li>
-                      <li><a href="property-details.php">Property Details</a></li>
-                      <li><a href="contact.php" class="active">Contact Us</a></li>
-                      <li><a href="#"><i class="fa fa-calendar"></i> Schedule a visit</a></li>
+                    <?php
+                      $pages = array('Home'=>'index.php',
+                      'Properties'=>'properties.php',
+                      'Property Details'=>'property-details.php',
+                      'Contact Us'=>'contact.php');
+                      echo(get_menu($pages));
+                    ?>    
                   </ul>   
                     <a class='menu-trigger'>
                         <span>Menu</span>

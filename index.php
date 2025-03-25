@@ -3,7 +3,6 @@
 include("assets/header/header.php");
 ?>
   <!-- ***** Header Area End ***** -->
-
   <div class="main-banner">
     <div class="owl-carousel owl-banner">
       <div class="item item-1">
