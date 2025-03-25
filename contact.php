@@ -40,7 +40,7 @@ include("assets/header/header.php");
           </div>
         </div>
         <div class="col-lg-6">
-          <form id="contact-form" action="" method="post">
+          <form id="contact-form" action="thankyou.php" method="post">
             <div class="row">
               <div class="col-lg-12">
                 <fieldset>
