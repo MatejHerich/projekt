@@ -1,5 +1,6 @@
 <?php
    require('assets/_inc/functions.php');
+   $menu = new Menu();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <title>Villa Agency - Real Estate HTML5 Template</title>
     <?php
-    add_stylesheets();
+    $menu->add_stylesheets();
     ?>
   </head>
 
@@ -63,11 +64,10 @@
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
                     <?php
-                      $pages = array('Home'=>'index.php',
-                      'Properties'=>'properties.php',
-                      'Property Details'=>'property-details.php',
-                      'Contact Us'=>'contact.php');
-                      echo(get_menu($pages));
+                      $menuItems = $menu->index();
+                      foreach($menuItems as $item){
+                        $padding = ($item['label'] == 'Contact') ? ' style="padding-left: 20px;"' : '';
+                        echo '<li><a href="' . $item['link'] . '"' . $padding . '>' . $item['label'] . '</a></li>';}
                     ?>    
                   </ul>   
                     <a class='menu-trigger'>

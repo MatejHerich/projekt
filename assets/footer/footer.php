@@ -9,7 +9,7 @@
   </footer>
 
   <?php
-  add_scripts();
+  $menu->add_scripts();
   ?>
 
   </body>
