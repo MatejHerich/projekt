@@ -1,5 +1,5 @@
 <?php
-   require('assets/_inc/functions.php');
+   require('assets/classes/Menu.php');
    $menu = new Menu();
 ?>
 <!DOCTYPE html>

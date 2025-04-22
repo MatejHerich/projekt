@@ -1,6 +1,6 @@
   <!-- ***** Header Area Start ***** -->
 <?php
-include("assets/header/header.php");
+include("assets/_inc/header.php");
 ?>
   <!-- ***** Header Area End ***** -->
 
@@ -62,8 +62,8 @@ include("assets/header/header.php");
               </div>
               <div class="col-lg-12">
                 <fieldset>
-                  <label for="message">Message</label>
-                  <textarea name="message" id="message" placeholder="Your Message"></textarea>
+                 <label for="question">Question</label>
+                  <textarea name="question" id="question" placeholder="Your Question"></textarea>
                 </fieldset>
               </div>
               <div class="col-lg-12">
@@ -83,6 +83,6 @@ include("assets/header/header.php");
     </div>
   </div>
 <?php
-include("assets/footer/footer.php");
+include("assets/_inc/footer.php");
 ?>
 </html>

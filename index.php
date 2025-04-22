@@ -1,6 +1,6 @@
   <!-- ***** Header Area Start ***** -->
   <?php
-include("assets/header/header.php");
+include("assets/_inc/header.php");
 ?>
   <!-- ***** Header Area End ***** -->
   <div class="main-banner">
@@ -469,6 +469,6 @@ include("assets/header/header.php");
   </div>
 
   <?php
-include("assets/footer/footer.php");
+include("assets/_inc/footer.php");
 ?>
 </html>

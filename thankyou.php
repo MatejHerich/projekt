@@ -1,17 +1,33 @@
 <?php
-include("assets/header/header.php");
+require_once ('assets/classes/Database.php');
+$db = new Database();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = $_POST['name'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $subject = $_POST['subject'] ?? '';
+    $question = $_POST['question'] ?? '';
+    
+    try {
+        $db->insertQuestion($name, $email, $subject, $question);
+    } catch (PDOException $e) {
+        $error = "Chyba pri ukladaní do databázy: " . $e->getMessage();
+    }
+}
+include("assets/_inc/header.php");
+
 ?>
 
 <section class="thank-you-section" style="text-align: center; padding: 100px 20px;">
     <div class="container">
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $contact_name = $_POST["name"];
-            if (empty($contact_name)) {
+            $name = $_POST['name'] ?? '';
+            if (empty($name)) {
                 echo "<h2>Thank you for filling out the form.</h2>";
             } else {
-                echo "<h2>Thank you, $contact_name, for filling out the form.</h2>";
+                echo "<h2>Thank you, $name, for filling out the form.</h2>";
             }
+            
         }
         ?>
         <br>
@@ -57,7 +73,7 @@ include("assets/header/header.php");
 </section>
 
 <?php
-include("assets/footer/footer.php");
+include("assets/_inc/footer.php");
 ?>
 
 </html>
