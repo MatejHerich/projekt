@@ -4,8 +4,7 @@ require_once('assets/classes/Database.php');
 
 if (!isset($_SESSION['admin'])) {
   header("Location: login.php");
-  exit;
-}
+  exit;}
 
 $db = new Database();
 $pdo = $db->getConnection();
@@ -15,8 +14,14 @@ if (isset($_GET['done'])) {
   $stmt = $pdo->prepare("UPDATE qna SET status = 'answered' WHERE id = :id");
   $stmt->execute([':id' => $id]);
   header("Location: admin.php");
-  exit;
-}
+  exit;}
+
+if (isset($_GET['delete'])) {
+  $id = intval($_GET['delete']);
+  $db->deleteQuestion($id);
+  header("Location: admin.php");
+  exit;}
+
 
 $stmt = $pdo->query("SELECT * FROM qna ORDER BY id DESC");
 $questions = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -90,21 +95,23 @@ include("assets/_inc/header.php");
   </tr>
 
   <?php foreach ($questions as $q): ?>
-    <tr>
-      <td><?= htmlspecialchars($q['name']) ?></td>
-      <td><a href="mailto:<?= htmlspecialchars($q['email']) ?>"><?= htmlspecialchars($q['email']) ?></a></td>
-      <td><?= htmlspecialchars($q['subject']) ?></td>
-      <td><?= nl2br(htmlspecialchars($q['question'])) ?></td>
-      <td class="status-<?= $q['status'] ?>"><?= ucfirst($q['status']) ?></td>
-      <td>
-        <?php if ($q['status'] === 'new'): ?>
-          <a href="?done=<?= $q['id'] ?>" class="btn">Done</a>
-        <?php else: ?>
-          ✔️
-        <?php endif; ?>
-      </td>
-    </tr>
-  <?php endforeach; ?>
+  <tr>
+    <td><?= $q['name'] ?></td>
+    <td><a href="mailto:<?= $q['email'] ?>"><?= $q['email'] ?></a></td>
+    <td><?= $q['subject'] ?></td>
+    <td><?= $q['question'] ?></td>
+    <td class="status-<?= $q['status'] ?>"><?= $q['status'] ?></td>
+    <td>
+      <?php if ($q['status'] === 'new'): ?>
+        <a href="?done=<?= $q['id'] ?>" class="btn">Done</a>
+      <?php else: ?>
+        ✔️
+      <?php endif; ?>
+      <a href="edit.php?id=<?= $q['id'] ?>" class="btn btn-update">Update</a>
+      <a href="?delete=<?= $q['id'] ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this question?');">Delete</a>
+    </td>
+  </tr>
+<?php endforeach; ?>
 </table>
 <br>
 <br>

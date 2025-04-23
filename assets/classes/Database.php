@@ -37,5 +37,22 @@ class Database{
     ':username' => $username,
     ':password' => md5($password)]);
     return $stmt->fetch(PDO::FETCH_ASSOC);}
+
+  public function updateQuestion($id, $data) {
+    $sql = "UPDATE qna SET name = :name, email = :email, subject = :subject, question = :question, status = :status WHERE id = :id";
+    $stmt = $this->pdo->prepare($sql);
+    return $stmt->execute([
+        ':name' => $data['name'],
+        ':email' => $data['email'],
+        ':subject' => $data['subject'],
+        ':question' => $data['question'],
+        ':status' => $data['status'],
+        ':id' => $id ]);}
+
+  public function deleteQuestion($id) {
+    $sql = "DELETE FROM qna WHERE id = :id";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([':id' => $id]);}
+  
 }
 ?>
