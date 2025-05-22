@@ -18,7 +18,6 @@
 
 <body>
 
-  <!-- ***** Preloader Start ***** -->
   <div id="js-preloader" class="js-preloader">
     <div class="preloader-inner">
       <span class="dot"></span>
@@ -29,7 +28,6 @@
       </div>
     </div>
   </div>
-  <!-- ***** Preloader End ***** -->
 
   <div class="sub-header">
     <div class="container">
@@ -56,12 +54,9 @@
         <div class="row">
             <div class="col-12">
                 <nav class="main-nav">
-                    <!-- ***** Logo Start ***** -->
                     <a href="index.php" class="logo">
                         <h1>Villa</h1>
                     </a>
-                    <!-- ***** Logo End ***** -->
-                    <!-- ***** Menu Start ***** -->
                     <ul class="nav">
                     <?php
                       $menuItems = $menu->index();
@@ -75,7 +70,6 @@
                     <a class='menu-trigger'>
                         <span>Menu</span>
                     </a>
-                    <!-- ***** Menu End ***** -->
                 </nav>
             </div>
         </div>

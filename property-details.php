@@ -1,9 +1,6 @@
-  <!-- ***** Header Area Start ***** -->
-  <?php
+<?php
 include("assets/_inc/header.php");
 ?>
-  <!-- ***** Header Area End ***** -->
-
   <div class="page-heading header-text">
     <div class="container">
       <div class="row">

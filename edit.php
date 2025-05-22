@@ -34,7 +34,6 @@ include('assets/_inc/header.php');
 ?>
 
 <style>
-  /* tvoj CSS tu */
   .form-container {
     max-width: 600px;
     margin: 50px auto;
