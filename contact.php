@@ -1,8 +1,32 @@
-  <!-- ***** Header Area Start ***** -->
 <?php
+
+require_once 'assets/classes/DatabaseConnection.php';
+require_once 'assets/classes/ContactManager.php';
+
+$dbConnection = new DatabaseConnection();
+$pdo = $dbConnection->getConnection();
+
+$contactManager = new ContactManager($pdo);
+
+$message = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name = $_POST['name'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $subject = $_POST['subject'] ?? '';
+    $question = $_POST['question'] ?? '';
+
+    try {
+        $contactManager->insertQuestion($name, $email, $subject, $question);
+        $message = "Thank you for your message, we will contact you soon.";
+    } catch (Exception $e) {
+        $message = "Error: " . $e->getMessage();
+    }
+}
+
 include("assets/_inc/header.php");
 ?>
-  <!-- ***** Header Area End ***** -->
+
 
   <div class="page-heading header-text">
     <div class="container">
@@ -39,30 +63,36 @@ include("assets/_inc/header.php");
             </div>
           </div>
         </div>
+
         <div class="col-lg-6">
-          <form id="contact-form" action="thankyou.php" method="post">
+
+          <?php if ($message): ?>
+            <div class="alert alert-info"><?= htmlspecialchars($message) ?></div>
+          <?php endif; ?>
+
+          <form id="contact-form" action="" method="post">
             <div class="row">
               <div class="col-lg-12">
                 <fieldset>
                   <label for="name">Full Name</label>
-                  <input type="name" name="name" id="name" placeholder="Your Name..." autocomplete="on" required>
+                  <input type="text" name="name" id="name" placeholder="Your Name..." autocomplete="on" required>
                 </fieldset>
               </div>
               <div class="col-lg-12">
                 <fieldset>
                   <label for="email">Email Address</label>
-                  <input type="text" name="email" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your E-mail..." required="">
+                  <input type="email" name="email" id="email" placeholder="Your E-mail..." required>
                 </fieldset>
               </div>
               <div class="col-lg-12">
                 <fieldset>
                   <label for="subject">Subject</label>
-                  <input type="subject" name="subject" id="subject" placeholder="Subject..." autocomplete="on" >
+                  <input type="text" name="subject" id="subject" placeholder="Subject..." autocomplete="on" >
                 </fieldset>
               </div>
               <div class="col-lg-12">
                 <fieldset>
-                 <label for="question">Question</label>
+                  <label for="question">Question</label>
                   <textarea name="question" id="question" placeholder="Your Question"></textarea>
                 </fieldset>
               </div>
@@ -73,16 +103,17 @@ include("assets/_inc/header.php");
               </div>
             </div>
           </form>
+
         </div>
+
         <div class="col-lg-12">
           <div id="map">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12469.776493332698!2d-80.14036379941481!3d25.907788681148624!2m3!1f357.26927939317244!2f20.870722720054623!3f0!3m2!1i1024!2i768!4f35!3m3!1m2!1s0x88d9add4b4ac788f%3A0xe77469d09480fcdb!2sSunny%20Isles%20Beach!5e1!3m2!1sen!2sth!4v1642869952544!5m2!1sen!2sth" width="100%" height="500px" frameborder="0" style="border:0; border-radius: 10px; box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);" allowfullscreen=""></iframe>
           </div>
         </div>
+
       </div>
     </div>
   </div>
-<?php
-include("assets/_inc/footer.php");
-?>
-</html>
+
+<?php include("assets/_inc/footer.php"); ?>

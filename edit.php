@@ -1,24 +1,31 @@
 <?php
 session_start();
-require_once('assets/classes/Database.php');
 
-$db = new Database();
-$pdo = $db->getConnection();
+require_once('assets/classes/DatabaseConnection.php');
+require_once('assets/classes/ContactManager.php');
+
+$dbConnection = new DatabaseConnection();
+$pdo = $dbConnection->getConnection();
+
+$contactManager = new ContactManager($pdo);
 
 $id = intval($_GET['id']);
-$stmt = $pdo->prepare("SELECT * FROM qna WHERE id = :id");
-$stmt->execute([':id' => $id]);
-$question = $stmt->fetch();
+$question = $contactManager->getQuestionById($id);
+
+if (!$question) {
+    die("Question not found.");
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = [
-        'name' => $_POST['name'],
-        'email' => $_POST['email'],
-        'subject' => $_POST['subject'],
-        'question' => $_POST['question'],
-        'status' => $_POST['status']
+        'name' => htmlspecialchars($_POST['name']),
+        'email' => htmlspecialchars($_POST['email']),
+        'subject' => htmlspecialchars($_POST['subject']),
+        'question' => htmlspecialchars($_POST['question']),
+        'status' => htmlspecialchars($_POST['status'])
     ];
-    $db->updateQuestion($id, $data);
+
+    $contactManager->updateQuestion($id, $data);
     header("Location: admin.php");
     exit;
 }
@@ -27,6 +34,7 @@ include('assets/_inc/header.php');
 ?>
 
 <style>
+  /* tvoj CSS tu */
   .form-container {
     max-width: 600px;
     margin: 50px auto;
@@ -36,17 +44,14 @@ include('assets/_inc/header.php');
     color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
-
   h2 {
     text-align: center;
     margin-top: 30px;
     font-size: 28px;
   }
-
   .form-container .form-group label {
     color: #fff;
   }
-
   .form-container input,
   .form-container textarea,
   .form-container select {
@@ -58,7 +63,6 @@ include('assets/_inc/header.php');
     width: 100%;
     margin-bottom: 15px;
   }
-
   .form-container button {
     background-color: #28a745;
     color: white;
@@ -69,7 +73,6 @@ include('assets/_inc/header.php');
     cursor: pointer;
     margin-top: 20px;
   }
-
   .form-container button:hover {
     background-color: #218838;
   }
@@ -81,22 +84,22 @@ include('assets/_inc/header.php');
   <form method="post">
     <div class="form-group">
       <label for="name">Name:</label>
-      <input type="text" name="name" value="<?= $question['name'] ?>">
+      <input type="text" name="name" value="<?= htmlspecialchars($question['name']) ?>" required>
     </div>
 
     <div class="form-group">
       <label for="email">Email:</label>
-      <input type="email" name="email" value="<?= $question['email'] ?>">
+      <input type="email" name="email" value="<?= htmlspecialchars($question['email']) ?>" required>
     </div>
 
     <div class="form-group">
       <label for="subject">Subject:</label>
-      <input type="text" name="subject" value="<?= $question['subject'] ?>">
+      <input type="text" name="subject" value="<?= htmlspecialchars($question['subject']) ?>">
     </div>
 
     <div class="form-group">
       <label for="question">Question:</label>
-      <textarea name="question" rows="5"><?=$question['question'] ?></textarea>
+      <textarea name="question" rows="5"><?= htmlspecialchars($question['question']) ?></textarea>
     </div>
 
     <div class="form-group">
