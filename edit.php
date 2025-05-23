@@ -12,6 +12,11 @@ $contactManager = new ContactManager($pdo);
 $id = intval($_GET['id']);
 $question = $contactManager->getQuestionById($id);
 
+if (!isset($_SESSION['admin'])) {
+    header("Location: login.php");
+    exit;
+}
+
 if (!$question) {
     die("Question not found.");
 }

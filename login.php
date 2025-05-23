@@ -98,7 +98,7 @@ include("assets/_inc/header.php");
       <input type="password" name="password" required>
     </label>
     <button type="submit">Log in</button>
-    <p><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>
+    <p><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></p>
   </form>
 </main>
 

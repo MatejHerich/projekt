@@ -12,7 +12,7 @@ class Menu{
       }
       $this->menuItems = $menuItems;}
 
-    public function index(){
+    public function getMenu(){
       return $this->menuItems;}
   
     public function add_scripts(){

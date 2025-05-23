@@ -59,7 +59,7 @@
                     </a>
                     <ul class="nav">
                     <?php
-                      $menuItems = $menu->index();
+                      $menuItems = $menu->getMenu();
                       foreach($menuItems as $item){
                         $padding = ($item['label'] == 'Contact') ? ' style="padding-left: 20px;"' : '';
                         echo '<li><a href="' . $item['link'] . '"' . $padding . '>' . $item['label'] . '</a></li>';}
