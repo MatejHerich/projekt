@@ -8,9 +8,8 @@ require_once 'assets/classes/PropertyManager.php';
 
 $dbConnection = new DatabaseConnection();
 $pdo = $dbConnection->getConnection();
-
-
 $propertyManager = new PropertyManager($pdo);
+
 $properties = $propertyManager->getAllProperties();
 ?>
 
@@ -294,26 +293,25 @@ $properties = $propertyManager->getAllProperties();
     <div class="row">
       <?php foreach ($properties as $property): ?>
         <div class="col-lg-4 col-md-6">
-  <div class="item">
-    <a href="property-details.php?id=<?php echo htmlspecialchars($property['id']); ?>">
-      <img src="assets/images/<?php echo htmlspecialchars($property['obrazok']); ?>" alt="<?php echo htmlspecialchars($property['nazov']); ?>">
-    </a>
-    <span class="category"><?php echo htmlspecialchars($property['kategoria']); ?></span>
-    <h6><?php echo htmlspecialchars('$'.number_format($property['cena'], 0, '.', '.')); ?></h6>
-    <h4><a href="property-details.php?id=<?php echo htmlspecialchars($property['id']); ?>"><?php echo htmlspecialchars($property['nazov']); ?></a></h4>
-    <ul>
-      <li>Bedrooms: <span><?php echo htmlspecialchars($property['pocet_izieb']); ?></span></li>
-      <li>Bathrooms: <span><?php echo htmlspecialchars($property['pocet_kupelni']); ?></span></li>
-      <li>Area: <span><?php echo htmlspecialchars($property['rozloha'].'m2'); ?></span></li>
-      <li>Floor: <span><?php echo htmlspecialchars($property['poschodie']); ?></span></li>
-      <li>Parking: <span><?php echo htmlspecialchars($property['parkovanie']); ?></span></li>
-    </ul>
-    <div class="main-button">
-      <a href="property-details.php?id=<?php echo htmlspecialchars($property['id']); ?>">Schedule a visit</a>
-    </div>
-  </div>
-</div>
-
+          <div class="item">
+            <a href="property-details.php?id=<?php echo htmlspecialchars($property['id']); ?>">
+              <img src="assets/images/<?php echo htmlspecialchars($property['obrazok']); ?>" alt="<?php echo htmlspecialchars($property['nazov']); ?>">
+            </a>
+            <span class="category"><?php echo htmlspecialchars($property['kategoria']); ?></span>
+            <h6><?php echo htmlspecialchars('$'.number_format($property['cena'], 0, '.', '.')); ?></h6>
+            <h4><a href="property-details.php?id=<?php echo htmlspecialchars($property['id']); ?>"><?php echo htmlspecialchars($property['nazov']); ?></a></h4>
+            <ul>
+              <li>Bedrooms: <span><?php echo htmlspecialchars($property['pocet_izieb']); ?></span></li>
+              <li>Bathrooms: <span><?php echo htmlspecialchars($property['pocet_kupelni']); ?></span></li>
+              <li>Area: <span><?php echo htmlspecialchars($property['rozloha'].'m2'); ?></span></li>
+              <li>Floor: <span><?php echo htmlspecialchars($property['poschodie']); ?></span></li>
+              <li>Parking: <span><?php echo htmlspecialchars($property['parkovanie']); ?></span></li>
+            </ul>
+            <div class="main-button">
+              <a href="property-details.php?id=<?php echo htmlspecialchars($property['id']); ?>">Schedule a visit</a>
+            </div>
+           </div>
+        </div>
       <?php endforeach; ?>
     </div>
   </div>

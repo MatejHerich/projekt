@@ -10,7 +10,6 @@ if (!isset($_SESSION['admin'])) {
 
 $dbConnection = new DatabaseConnection();
 $pdo = $dbConnection->getConnection();
-
 $contactManager = new ContactManager($pdo);
 
 if (isset($_GET['done'])) {

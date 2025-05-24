@@ -4,14 +4,11 @@ require_once 'assets/classes/PropertyManager.php';
 
 $dbConnection = new DatabaseConnection();
 $pdo = $dbConnection->getConnection();
-
 $propertyManager = new PropertyManager($pdo);
 
-
 $properties = $propertyManager->getAllProperties();
-
-
 $categories = array_unique(array_column($properties, 'kategoria'));
+
 include("assets/_inc/header.php");
 ?>
 <div class="page-heading header-text">

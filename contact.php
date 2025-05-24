@@ -5,7 +5,6 @@ require_once 'assets/classes/ContactManager.php';
 
 $dbConnection = new DatabaseConnection();
 $pdo = $dbConnection->getConnection();
-
 $contactManager = new ContactManager($pdo);
 
 $message = '';

@@ -4,18 +4,17 @@ session_start();
 require_once('assets/classes/DatabaseConnection.php');
 require_once('assets/classes/ContactManager.php');
 
-$dbConnection = new DatabaseConnection();
-$pdo = $dbConnection->getConnection();
-
-$contactManager = new ContactManager($pdo);
-
-$id = intval($_GET['id']);
-$question = $contactManager->getQuestionById($id);
-
 if (!isset($_SESSION['admin'])) {
     header("Location: login.php");
     exit;
 }
+
+$dbConnection = new DatabaseConnection();
+$pdo = $dbConnection->getConnection();
+$contactManager = new ContactManager($pdo);
+
+$id = intval($_GET['id']);
+$question = $contactManager->getQuestionById($id);
 
 if (!$question) {
     die("Question not found.");
