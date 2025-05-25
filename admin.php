@@ -12,15 +12,15 @@ $dbConnection = new DatabaseConnection();
 $pdo = $dbConnection->getConnection();
 $contactManager = new ContactManager($pdo);
 
-if (isset($_GET['done'])) {
-    $id = intval($_GET['done']);
+if (isset($_POST['done'])) {
+    $id = intval($_POST['done']);
     $contactManager->markAsAnswered($id);
     header("Location: admin.php");
     exit;
 }
 
-if (isset($_GET['delete'])) {
-    $id = intval($_GET['delete']);
+if (isset($_POST['delete'])) {
+    $id = intval($_POST['delete']);
     $contactManager->deleteQuestion($id);
     header("Location: admin.php");
     exit;
@@ -148,11 +148,15 @@ include("assets/_inc/header.php");
                         <td><?= htmlspecialchars($q['question']) ?></td>
                         <td class="status-<?= $q['status'] ?>"><?= $q['status'] ?></td>
                         <td>
-                            <?php if ($q['status'] === 'new'): ?>
-                                <a href="?done=<?= $q['id'] ?>" class="btn">Done</a>
-                            <?php endif; ?>
-                            <a href="edit.php?id=<?= $q['id'] ?>" class="btn btn-update">Update</a>
-                            <a href="?delete=<?= $q['id'] ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this question?');">Delete</a>
+                        <form method="post" style="display:inline;">
+                            <input type="hidden" name="done" value="<?= $q['id'] ?>">
+                            <button type="submit" class="btn">Done</button>
+                        </form>
+                        <a href="edit.php?id=<?= $q['id'] ?>" class="btn btn-update">Update</a>
+                        <form method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this question?');">
+                            <input type="hidden" name="delete" value="<?= $q['id'] ?>">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
                         </td>
                     </tr>
                 <?php endforeach; ?>
